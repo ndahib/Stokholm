@@ -5,7 +5,7 @@ from ransomwarer import Ransomwarer
 
 class StokholmManager():
     def __init__(self, argv):
-        self.argv = argv[1:]
+        self.argv = argv[1]
         self.prog_name = self.argv[0]
         if self.prog_name == "__main__.py":
             self.prog_name = "python -m stokholm"
@@ -33,10 +33,11 @@ class StokholmManager():
         
     def execute(self):
         parser, args = self.__parse_args()
+        print("args", parser, args)
+        return args
 
 def execute_from_command_line():
     stokholm_manager = StokholmManager(sys.argv)
-    stokholm_manager.execute()
-    # stoklhom_ransmoware = Ransomwarer()
-    # stoklhom_ransmoware.execute
-    Ransomwarer().execute()
+    args = stokholm_manager.execute()
+    stokholm_ransomware = Ransomwarer(args)
+    stokholm_ransomware.execute()
