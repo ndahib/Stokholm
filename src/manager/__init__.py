@@ -1,11 +1,23 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    __init__.py                                        :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: ndahib <ndahib@student.1337.ma>            +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/12/13 10:56:08 by ndahib            #+#    #+#              #
+#    Updated: 2025/12/13 12:37:32 by ndahib           ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 from argparse import ArgumentParser
 import sys
 import constants
 from ransomwarer import Ransomwarer
 
 class StokholmManager():
-    def __init__(self, argv):
-        self.argv = argv[1]
+    def __init__(self, argv = None):
+        self.argv = argv or sys.argv[:]
         self.prog_name = self.argv[0]
         if self.prog_name == "__main__.py":
             self.prog_name = "python -m stokholm"
@@ -33,7 +45,7 @@ class StokholmManager():
         
     def execute(self):
         parser, args = self.__parse_args()
-        print("args", parser, args)
+            
         return args
 
 def execute_from_command_line():
