@@ -6,7 +6,7 @@
 #    By: ndahib <ndahib@student.1337.ma>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/10 17:14:42 by ndahib            #+#    #+#              #
-#    Updated: 2025/12/12 16:40:08 by ndahib           ###   ########.fr        #
+#    Updated: 2025/12/15 14:20:14 by ndahib           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,9 +56,6 @@ run	: install
 		printf "$(PURPLE) Warning: $(YELLOW) $(VENV_DIR) not found !! $(DEF)\n"; \
 	fi
 	@$(VENV_BIN)/$(PYTHON) $(PFLAGS) $(SRC_MAIN) $(ARGS)
-
-%:
-	@:
 
 clean:
 	@: 

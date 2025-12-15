@@ -6,7 +6,7 @@
 #    By: ndahib <ndahib@student.1337.ma>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/13 10:56:00 by ndahib            #+#    #+#              #
-#    Updated: 2025/12/13 12:36:07 by ndahib           ###   ########.fr        #
+#    Updated: 2025/12/15 12:01:05 by ndahib           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ WANNACRY_EXTENSIONS = """
 EXTENSIONS = {ext.strip().lower() for ext in WANNACRY_EXTENSIONS.split(",") if ext.strip()}
 
 TARGET_DIR = "infection"
-EXTENSION = ".ft"
+FT_EXTENSION = ".ft"
 WARNING_FLAG = "warning"
 ERROR_FLAG = "error"
 SUCCES_FLAG = "succes"

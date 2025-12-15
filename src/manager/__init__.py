@@ -6,14 +6,14 @@
 #    By: ndahib <ndahib@student.1337.ma>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/13 10:56:08 by ndahib            #+#    #+#              #
-#    Updated: 2025/12/13 12:37:32 by ndahib           ###   ########.fr        #
+#    Updated: 2025/12/15 12:09:15 by ndahib           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 from argparse import ArgumentParser
 import sys
 import constants
-from ransomwarer import Ransomwarer
+from ransomwarer import Stockholm
 
 class StokholmManager():
     def __init__(self, argv = None):
@@ -51,5 +51,5 @@ class StokholmManager():
 def execute_from_command_line():
     stokholm_manager = StokholmManager(sys.argv)
     args = stokholm_manager.execute()
-    stokholm_ransomware = Ransomwarer(args)
+    stokholm_ransomware = Stockholm(args)
     stokholm_ransomware.execute()
