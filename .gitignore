@@ -1,4 +1,11 @@
-.key
 *.venv/
 note.txt
-*key
+*.key
+*/__pycache__/
+*.pyc
+.vscode/
+.DS_Store
+.env
+
+.*key
+stokholm.key
